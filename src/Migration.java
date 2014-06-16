@@ -12,7 +12,6 @@ public class Migration {
 
     private static final String PATH_TO_JOURNALS = "/home/bresiu/Sonda/Prevayler/Prevayler Demo";
 
-    // /*
     public static void go() throws MalformedURLException, ClassNotFoundException, NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
 
@@ -34,7 +33,12 @@ public class Migration {
 
         System.out.println(numbers.size());
         System.out.println(numbers);
-    }
 
-    // */
+        java.lang.Class clsNumbers = clsLoader.loadClass("Numbers");
+        Method methodInt = clsNumbers.getMethod("getIntVariable");
+
+        Integer test = (Integer) methodInt.invoke(null);
+
+        System.out.println("Variable: " + test);
+    }
 }
