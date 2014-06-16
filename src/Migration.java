@@ -25,8 +25,11 @@ public class Migration {
         // first ask to load classes from their parent class loader.
         CustomClassLoader clsLoader = new CustomClassLoader(urls);
         java.lang.Class cls = clsLoader.loadClass("GetNumbers");
+
         // String.class in methods second parametr means, that we should pass String to that method
         Method method = cls.getMethod("migrate", String.class);
+
+        method.invoke(null, PATH_TO_JOURNALS);
 
         // 3. invoke method
         List numbers = (List) method.invoke(null, PATH_TO_JOURNALS);
@@ -40,5 +43,24 @@ public class Migration {
         Integer test = (Integer) methodInt.invoke(null);
 
         System.out.println("Variable: " + test);
+
+        ////////////////////////////////////
+
+        // Testing cast class to object
+
+        java.lang.Class numbersClass = clsLoader.loadClass("Numbers"); // Class "Numbers"
+        Method getCast = numbersClass.getMethod("getCast"); // Method "getCast"
+
+        Object cast = getCast.invoke(null); // Object of type "Cast"
+
+        // How to invoke methods from class "Cast" in object of type "Cast"?
+
+        java.lang.Class castClass = clsLoader.loadClass("Cast"); // Class "Cast"
+        Method castMethod = castClass.getMethod("getCastString"); // Method from "Cast"
+
+        java.lang.Class castObjectToClass = (java.lang.Class) castClass.cast(cast);
+        String castString = (String) castObjectToClass.getMethod("getCastString").invoke(null);
+
+        System.out.println(castString);
     }
 }
