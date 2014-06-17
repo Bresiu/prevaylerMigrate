@@ -46,21 +46,10 @@ public class Migration {
 
         ////////////////////////////////////
 
-        // Testing cast class to object
-
         java.lang.Class numbersClass = clsLoader.loadClass("Numbers"); // Class "Numbers"
         Method getCast = numbersClass.getMethod("getCast"); // Method "getCast"
-
-        Object cast = getCast.invoke(null); // Object of type "Cast"
-
-        // How to invoke methods from class "Cast" in object of type "Cast"?
-
         java.lang.Class castClass = clsLoader.loadClass("Cast"); // Class "Cast"
-        Method castMethod = castClass.getMethod("getCastString"); // Method from "Cast"
-
-        java.lang.Class castObjectToClass = (java.lang.Class) castClass.cast(cast);
-        String castString = (String) castObjectToClass.getMethod("getCastString").invoke(null);
-
-        System.out.println(castString);
+        Object cast = getCast.invoke(null); // Object of type "Cast"
+        System.out.println(castClass.getMethod("getCastString").invoke(cast));
     }
 }
